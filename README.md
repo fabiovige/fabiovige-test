@@ -6,11 +6,12 @@ Teste básico para avaliar os conhecimentos em Docker, GIT, Laravel e Postgres.
 
 ### Recursos aplicados
 
+- Laravel 8.*
 - Seeders / Factory
 - Resource
 - FormRequest
 - DataTable (extra)
-- Bootstrap Laravel / ui
+- Bootstrap 5.1 Laravel / ui
 - Repository
 - Service
 
@@ -30,24 +31,37 @@ Subir os containers
 
 ```sh
 docker-compose up -d
+```
+
+Acessando o container fabiovige_app
+
+```sh
 docker-compose exec fabiovige_app bash
 ```
 
-Instalar as dependências
+Instalando as dependências
 
 ```sh
 composer install
 php artisan key:generate
-php artisan migrate:fresh --seeder
+php artisan migrate
 php artisan queue:table
 ```
 
-Instalar as dependências para front end
+Instalando as dependências para bootstrap
 
 ```sh
 composer require laravel/ui
 php artisan ui bootstrap
 npm install
+npm run dev
+```
+
+Instalando jquery e popper.js
+
+```sh
+npm install jquery --save-dev
+npm install popper.js --save-dev
 npm run dev
 ```
 

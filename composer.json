@@ -11,7 +11,10 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "datatables.net/datatables.net": "dev-master",
+        "datatables.net/datatables.net-dt": "dev-master",
+        "yajra/laravel-datatables-oracle": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
