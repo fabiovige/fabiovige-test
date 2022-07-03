@@ -1,0 +1,86 @@
+version: "3.7"
+
+services:
+
+    # image project
+    fabiovige_app:
+        build:
+            args:
+                user: fabio
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: fabiovige
+        container_name: fabiovige_app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - fabiovige_redis
+            - fabiovige_queue
+        networks:
+            - vige
+
+    # nginx
+    fabiovige_nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        container_name: fabiovige_nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx:/etc/nginx/conf.d
+        networks:
+            - vige
+
+    # postgre
+    fabiovige_pgsql:
+        image: 'postgres:14'
+        container_name: fabiovige_pgsql
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_PASSWORD:-secret}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+        volumes:
+            - ./.docker/pgsql/dbdata:/var/lib/postgresql/data'
+        networks:
+            - vige
+        healthcheck:
+            test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+            retries: 3
+            timeout: 5s
+
+    # queue
+    fabivige_queue:
+        build:
+            args:
+                user: fabio
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        container_name: fabiovige_queue
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - vige
+
+    # redis
+    fabiovige_redis:
+        image: redis:latest
+        restart: unless-stopped
+        container_name: fabiovige_redis
+        networks:
+            - vige
+
+networks:
+    vige:
+        driver: bridge
