@@ -7,7 +7,7 @@ Teste básico para avaliar os conhecimentos em Docker, GIT, Laravel e Postgres.
 ### Recursos aplicados
 
 - Laravel 8.*
-- Seeders / Factory / Models / Resource
+- Seeders / Factory / Models / Resource / FormRequest
 - Bootstrap 5.1 Laravel / ui / vuejs 
 - Route api (boas práticas)
 - Repository / Service
