@@ -7,13 +7,16 @@ Teste básico para avaliar os conhecimentos em Docker, GIT, Laravel e Postgres.
 ### Recursos aplicados
 
 - Laravel 8.*
-- Seeders / Factory
-- Resource
-- FormRequest
-- DataTable (extra)
-- Bootstrap 5.1 Laravel / ui
-- Repository
-- Service
+- Seeders / Factory / Models / Resource
+- Bootstrap 5.1 Laravel / ui / vuejs 
+- Route api (boas práticas)
+- Repository / Service
+- Ambiente Docker com Postgres, Redis, Php7.4-fpm, Nginx
+- Api de produtos com Consulta, Cadastro Atualização e Remoção
+- Queue (extra com adicionamento de fila)
+- Testes utilizando Postman
+- Compartilhamento da API https://documenter.getpostman.com/view/1984537/UzJFwz7b
+- Registro de Log
 
 ### Instalação
 
