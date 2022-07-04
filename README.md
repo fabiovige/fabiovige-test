@@ -87,40 +87,15 @@ Acesse
 [http://fabiovige.test](http://fabiovige.test)
 
 
-### API: Acessando os end point (Insomnia ou Postman)
+### API: Documentação Postman
 
-Listando todos os produtos
-
-```sh
-Verbo: GET 
-http://fabiovige.test/api/products
-```
-
-
-Consultando um produto
+[https://documenter.getpostman.com/view/1984537/UzJFwz7b](https://documenter.getpostman.com/view/1984537/UzJFwz7b)
 
 ```sh
-Verbo: GET
-http://fabiovige.test/api/products/1
-```
+GET http://fabiovige.test/api/v1/products
+GET http://fabiovige.test/api/v1/products/1
+POST http://fabiovige.test/api/v1/products
+PUT http://fabiovige.test/api/v1/products/1
+DELETE http://fabiovige.test/api/v1/products/1
 
-Cadastrando um produto
-
-```sh
-Verbo: POST
-http://fabiovige.test/api/products
-```
-
-Atualizando um produto
-
-```sh
-Verbo: PUT
-http://fabiovige.test/api/products/1
-```
-
-Excluindo um produto
-
-```sh
-Verbo: DELETE
-http://fabiovige.test/api/products/1
 ```
