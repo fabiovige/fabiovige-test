@@ -22,4 +22,9 @@ class Product extends Model
     protected $casts = [
         'status' => 'boolean'
     ];
+
+    public function getPriceAttribute($value)
+    {
+        return 'R$ ' . number_format($value,2,",",".");
+    }
 }
