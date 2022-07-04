@@ -6,107 +6,80 @@ Teste básico para avaliar os conhecimentos em Docker, GIT, Laravel e Postgres.
 
 ### Recursos aplicados
 
-- Seeders / Factory
-- Resource
-- FormRequest
-- DataTable (extra)
-- Bootstrap Laravel / ui
-- Repository
-- Service
+- Laravel 8.*
+- Seeders / Factory / Models / Resource / FormRequest
+- Bootstrap 5.1 Laravel / ui / vuejs 
+- Route api (boas práticas)
+- Repository / Service
+- Ambiente Docker com Postgres, Redis, Php7.4-fpm, Nginx
+- Api de produtos com Consulta, Cadastro Atualização e Remoção
+- Queue (extra com adicionamento de fila)
+- Testes utilizando Postman
+- Compartilhamento da API https://documenter.getpostman.com/view/1984537/UzJFwz7b
+- Registro de Log
 
-### Instalação
+### Instalação do ambiente de desenvolvimento
 
 Clonar repositório
 
 ```sh
 git clone https://github.com/fabiovige/fabiovige-test.git
+```
 
-cd fabiovige-test/
+Colocar no etc/hosts de sua máquina:
+```
+127.0.0.1 fabiovige.test
+```
 
+Copiar o .env.example e alterar as variáveis de ambiente:
+```
 cp .env.example .env
 ```
 
-Subir os containers
+Criar as imagens e containers do docker:
+```
+docker-compose up -d --build
+```
 
-```sh
-docker-compose up -d
+Entrar no container para rodar composer e etc do projeto:
+```
 docker-compose exec fabiovige_app bash
 ```
 
-Instalar as dependências
+Rodar o composer, dentro do container:
+```
+rm -rf vendor && composer install
+```
 
-```sh
-composer install
+Gerar a chave do laravel, dentro do container:
+```
 php artisan key:generate
-php artisan migrate:fresh --seeder
-php artisan queue:table
 ```
 
-Instalar as dependências para front end
-
-```sh
-composer require laravel/ui
-php artisan ui bootstrap
-npm install
-npm run dev
+Rodar as migrations e os seeders, dentro do container:
+```
+php artisan migrate --seed
 ```
 
-Corrige dependencia 'stats.children: true' [opcional]
-
-```sh
-npm install autoprefixer@10.4.5 --save-exact
-npm install
-npm run dev
+Instalar o npm, dentro do container:
+```
+rm -rf node_modules && npm install && npm run dev
 ```
 
-Adicione "127.0.0.1 fabiovige.test" no arquivo hosts
+Acessar a aplicação via browser:
 
-```sh
-Linux
-/etc/hosts 127.0.0.1 fabiovige.test
-
-Windows
-C:\Windows\System32\drivers\etc\hosts 127.0.0.1 fabiovige.test
-```
-
-Acesse
 [http://fabiovige.test](http://fabiovige.test)
 
 
-### API: Acessando os end point (Insomnia ou Postman)
+### API: Documentação Postman
 
-Listando todos os produtos
-
-```sh
-Verbo: GET 
-http://fabiovige.test/api/products
-```
-
-
-Consultando um produto
+[https://documenter.getpostman.com/view/1984537/UzJFwz7b](https://documenter.getpostman.com/view/1984537/UzJFwz7b)
 
 ```sh
-Verbo: GET
-http://fabiovige.test/api/products/1
-```
+GET http://fabiovige.test/api/v1/products
+GET http://fabiovige.test/api/v1/products/1
+POST http://fabiovige.test/api/v1/products
+PUT http://fabiovige.test/api/v1/products/1
+DELETE http://fabiovige.test/api/v1/products/1
 
-Cadastrando um produto
-
-```sh
-Verbo: POST
-http://fabiovige.test/api/products
-```
-
-Atualizando um produto
-
-```sh
-Verbo: PUT
-http://fabiovige.test/api/products/1
-```
-
-Excluindo um produto
-
-```sh
-Verbo: DELETE
-http://fabiovige.test/api/products/1
 ```
