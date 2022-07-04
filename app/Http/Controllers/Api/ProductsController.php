@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RequestProduct;
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -17,40 +21,125 @@ class ProductsController extends Controller
         $this->productService = $productService;
     }
 
-    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    /**
+     * @return JsonResponse
+     */
+    public function index()
     {
-        $products = $this->productService->getAll();
-
-        return ProductResource::collection($products);
+        try {
+            $products = $this->productService->getAll();
+            return new JsonResponse([
+                'error' => false,
+                'message' => null,
+                'status' => 200,
+                'data' => $products
+            ], 200);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => true,
+                'message' => 'Não foi possível realizar o cadastro',
+                'status' => 202,
+                'data' => []
+            ], 202);
+        }
     }
 
-    public function store(RequestProduct $request): ProductResource
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request)
     {
-        $product = $this->productService->create($request->validated());
-
-        return new ProductResource($product);
+        try {
+            $product = $this->productService->create($request->all());
+            return new JsonResponse([
+                'error' => false,
+                'message' => 'Registro cadastrado com sucesso',
+                'status' => 201,
+                'data' => $product
+            ], 201);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => true,
+                'message' => 'Não foi possível realizar o cadastro',
+                'status' => 400,
+                'data' => []
+            ], 400);
+        }
     }
 
-    public function show($id): ProductResource
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show( int $id)
     {
-        $product = $this->productService->getOne($id);
-
-        return new ProductResource($product);
+        try {
+            $product = $this->productService->getOne($id);
+            return new JsonResponse([
+                'error' => false,
+                'message' => null,
+                'status' => 200,
+                'data' => $product
+            ], 200);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => true,
+                'message' => 'Nenhum registro encontrado',
+                'status' => 404,
+                'data' => []
+            ], 404);
+        }
     }
 
-    public function update(RequestProduct $request, $id): JsonResponse
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(Request $request, int $id)
     {
-        $this->productService->update($id, $request->validated());
-
-        return response()->json([
-            'updated' => true
-        ]);
+        try {
+            $this->productService->update($id, $request->all());
+            $product = $this->productService->getOne($id);
+            return new JsonResponse([
+                'error' => false,
+                'message' => 'Registro atuallizado com sucesso',
+                'status' => 202,
+                'data' => $product
+            ], 200);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => true,
+                'message' => 'Não foi possível atualizar o registro',
+                'status' => 400,
+                'data' => []
+            ], 400);
+        }
     }
 
-    public function destroy($id): JsonResponse
-    {
-        $this->productService->delete($id);
 
-        return response()->json([], 204);
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id)
+    {
+        try {
+            $product = $this->productService->delete($id);
+            return new JsonResponse([
+                'status' => 202,
+                'error' => false,
+                'message' => 'Registro removido com sucesso',
+                'data' => []
+            ], 202);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'error' => true,
+                'message' => 'Nenhum registro encontrado',
+                'status' => 404,
+                'data' => []
+            ], 404);
+        }
     }
 }

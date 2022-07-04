@@ -17,8 +17,8 @@
 </head>
 <body>
 <div id="app">
-    <div class="container">
-        <main class="py-2">
+    <div class="container py-3">
+        <main>
             <div class="container">
                 @yield('content')
             </div>
@@ -32,7 +32,6 @@
                     </div>
                 </div>
             </div>
-
         </footer>
     </div>
 </div>
