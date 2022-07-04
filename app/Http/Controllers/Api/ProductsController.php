@@ -61,10 +61,10 @@ class ProductsController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         try {
             $product = $this->productService->create($request->all());
@@ -141,11 +141,11 @@ class ProductsController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(ProductRequest $request, int $id)
     {
         try {
             $this->productService->update($id, $request->all());

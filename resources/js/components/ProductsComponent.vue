@@ -20,7 +20,11 @@
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.description }}</td>
                                 <td>{{ product.price }}</td>
-                                <td>{{ product.stocked }}</td>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        Estoque <span class="badge rounded-pill bg-secondary">{{ product.stocked }}</span>
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -40,7 +44,7 @@ export default {
     },
     methods: {
         getProducts(){
-            axios.get('/api/products')
+            axios.get('/api/v1/products')
                 .then((response)=>{
                     this.products = response.data.data
                 })
