@@ -6,13 +6,17 @@ Teste básico para avaliar os conhecimentos em Docker, GIT, Laravel e Postgres.
 
 ### Recursos aplicados
 
-- Seeders / Factory
-- Resource
-- FormRequest
-- DataTable (extra)
-- Bootstrap Laravel / ui
-- Repository
-- Service
+- Laravel 8.*
+- Seeders / Factory / Models / Resource
+- Bootstrap 5.1 Laravel / ui / vuejs 
+- Route api (boas práticas)
+- Repository / Service
+- Ambiente Docker com Postgres, Redis, Php7.4-fpm, Nginx
+- Api de produtos com Consulta, Cadastro Atualização e Remoção
+- Queue (extra com adicionamento de fila)
+- Testes utilizando Postman
+- Compartilhamento da API https://documenter.getpostman.com/view/1984537/UzJFwz7b
+- Registro de Log
 
 ### Instalação
 
@@ -30,24 +34,37 @@ Subir os containers
 
 ```sh
 docker-compose up -d
+```
+
+Acessando o container fabiovige_app
+
+```sh
 docker-compose exec fabiovige_app bash
 ```
 
-Instalar as dependências
+Instalando as dependências
 
 ```sh
 composer install
 php artisan key:generate
-php artisan migrate:fresh --seeder
+php artisan migrate
 php artisan queue:table
 ```
 
-Instalar as dependências para front end
+Instalando as dependências para bootstrap
 
 ```sh
 composer require laravel/ui
 php artisan ui bootstrap
 npm install
+npm run dev
+```
+
+Instalando jquery e popper.js
+
+```sh
+npm install jquery --save-dev
+npm install popper.js --save-dev
 npm run dev
 ```
 
@@ -73,40 +90,15 @@ Acesse
 [http://fabiovige.test](http://fabiovige.test)
 
 
-### API: Acessando os end point (Insomnia ou Postman)
+### API: Documentação Postman
 
-Listando todos os produtos
-
-```sh
-Verbo: GET 
-http://fabiovige.test/api/products
-```
-
-
-Consultando um produto
+[https://documenter.getpostman.com/view/1984537/UzJFwz7b](https://documenter.getpostman.com/view/1984537/UzJFwz7b)
 
 ```sh
-Verbo: GET
-http://fabiovige.test/api/products/1
-```
+GET http://fabiovige.test/api/v1/products
+GET http://fabiovige.test/api/v1/products/1
+POST http://fabiovige.test/api/v1/products
+PUT http://fabiovige.test/api/v1/products/1
+DELETE http://fabiovige.test/api/v1/products/1
 
-Cadastrando um produto
-
-```sh
-Verbo: POST
-http://fabiovige.test/api/products
-```
-
-Atualizando um produto
-
-```sh
-Verbo: PUT
-http://fabiovige.test/api/products/1
-```
-
-Excluindo um produto
-
-```sh
-Verbo: DELETE
-http://fabiovige.test/api/products/1
 ```
