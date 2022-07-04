@@ -1,10 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductsController;
 
-Route::get('/products', function () {
-    return response()->json([
-        'success' => true
-    ],200);
-});
+Route::apiResource('/products', ProductsController::class);

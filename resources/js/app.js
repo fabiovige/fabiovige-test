@@ -1,7 +1,13 @@
 require('./bootstrap');
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+import vue from 'vue';
+window.Vue = vue;
+
+import ProductsComponent from './components/ProductsComponent.vue';
+Vue.component('products-component', ProductsComponent);
+
+const app = new Vue({
+    el: '#app'
 });
+
+window.$ = window.jQuery = require('jquery');
